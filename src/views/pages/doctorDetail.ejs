@@ -1,0 +1,101 @@
+<div class="row g-0">
+    <div class="container-fluid bg-white-200 bg-opacity-75 text-center p-4 po-ralative">
+        <p class="fs-5 text-gray-700 text-start" id="pageTitle">Thông tin bác sĩ</p>
+        <div id="contentArea">
+            <div class="row m-0">
+                <!-- <div class="col-8 text-start border border-0 rounded shadow-sm bg-white">
+                    <p class="fs-5 fw-bold mt-2 text-center">Lịch làm việc</p>
+                    <table class="table table-striped table-bordered">
+                        <% if (doctor && doctor.appointments && doctor.appointments.length> 0) { %>
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Bệnh nhân</th>
+                                    <th class="text-center">Ngày làm việc</th>
+                                    <th class="text-center">Ngày đặt lịch</th>
+                                    <th class="text-center">Tùy chỉnh</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% docInfo.appointments.forEach(function(appointment) { %>
+                                    <tr>
+                                        <td class="text-start ps-4">
+                                            <%= appointment.patient %>
+                                        </td>
+                                        <td class="text-end p-2">
+                                            <%= appointment.appointment_time %>
+                                        </td>
+                                        <td class="text-end p-2">
+                                            <%= appointment.createdAt %>
+                                        </td>
+                                        <td class="w-25 text-center">
+                                            <a href="/admin/lich-hen/thong-tin/<%= appointment.appointment_id %>"
+                                                class="text-decoration-none text-secondary" title="Xem"
+                                                id="appointmentLinkID">
+                                                <i class="fas fa-eye fs-5 me-2"></i>Xem chi tiết
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                            </tbody>
+                            <% } else { %>
+                                <tr>
+                                    <td class="fs-2 text-danger text-center">Không có lịch làm việc</td>
+                                </tr>
+                                <% } %>
+                    </table>
+                </div> -->
+                <div class="col ms-3 ps-2 text-start">
+                    <div class="row mb-2 border border-0 rounded shadow-sm bg-white">
+                        <p class="fw-bold fs-5 text-center">Thông tin bác sĩ</p>
+                        <% if (doctor) { %>
+                            <p class="m-0">
+                                Bác sĩ <%= doctor.User.name %>
+                                    <i class="fas fa-edit fw-light text-cyan-400 ms-2" style="cursor: pointer;"
+                                        title="Chỉnh sửa thông tin" onclick="editDocInfo()"></i>
+                            </p>
+                            <p class="m-0">Giới thiệu: <%= doctor.User.name %>
+                            </p>
+                            <p class="m-0">Kinh nghiệm làm việc: <%= doctor.User.name %>
+                            </p>
+                            <p class="m-0">Giá cho người Việt Nam: <%= doctor.User.name %>
+                            </p>
+                            <p class="m-0">Giá cho người nước ngoài: <%= doctor.User.name %>
+                            </p>
+                            <p class="m-0">Chuyên khoa: <%= doctor.Specialty.name %>
+                            </p>
+                            <% } else { %>
+                                <p class="fs-6 m-0 text-center text-red-400">Không có thông tin bác sĩ</p>
+                                <% } %>
+                    </div>
+                    <div class="row border border-0 rounded shadow-sm bg-white">
+                        <% if (doctor && doctor.User) { %>
+                            <a href="/user-detail/<%= doctor.User.id %>" type="button" class="my-2 text-center">
+                                <button class="btn btn-outline-primary w-75">
+                                    <i class="me-2 fa-solid fa-hand-point-right"></i>Thông tin tài khoản
+                                </button>
+                            </a>
+                            <p class="m-0">
+                                Tài khoản <%= doctor.User.id %>
+                                    <i class="fas fa-edit fw-light text-cyan-400 ms-2" style="cursor: pointer;"
+                                        title="Chỉnh sửa thông tin"></i>
+                            </p>
+                            <p class="m-0">Vai trò: <span class="text-blue-400">
+                                    <%= doctor.User.userType %>
+                                </span></p>
+                            <p class="m-0">Giới tính: <%= doctor.User.sex %>
+                            </p>
+                            <p class="m-0">Số điện thoại: <%= doctor.User.phone %>
+                            </p>
+                            <p class="m-0">CMND/CCCD: <%= doctor.User.email %>
+                            </p>
+                            <p class="m-0">Địa chỉ: <%= doctor.User.address %>
+                            </p>
+                            <% } else { %>
+                                <p class="fw-bold fs-5 text-center text-red-400">Không có thông tin tài khoản</p>
+                                <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

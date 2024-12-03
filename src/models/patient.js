@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Patient.belongsTo(models.User);
-      Patient.hasMany(models.History);
+      Patient.hasMany(models.Booking);
 
     }
   };

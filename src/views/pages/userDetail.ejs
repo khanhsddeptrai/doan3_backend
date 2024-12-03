@@ -1,0 +1,33 @@
+<div class="row g-0">
+    <div class="container-fluid bg-white-200 bg-opacity-75 text-center p-4 po-ralative">
+        <p class="fs-5 text-gray-700 text-start" id="pageTitle">Chi tiết tài khoản</p>
+        <div id="contentArea">
+            <div class="row m-0">
+                <div class="row">
+                    <div class="col ms-3 ps-2 text-start">
+                        <div class="row mb-2 border border-0 rounded shadow-sm bg-white">
+                            <p class="fw-bold fs-5 text-center">Thông tin tài khoản</p>
+                            <p class="m-0">Tên: <%= user.name %>
+                            </p>
+                            <p class="m-0">Email: <%= user.email %>
+                            </p>
+                            <p class="m-0">Giới tính: <%= user.sex %>
+                            </p>
+                            <p class="m-0">Điện thoại: <%= user.phone %>
+                            </p>
+                            <p class="m-0">Địa chỉ: <%= user.address %>
+                            </p>
+                            <p class="m-0">Vai trò: <%= user.userType %>
+                            </p>
+                            <p class="m-0">Ngày tạo: <%= user.createdAt %>
+                            </p>
+                            <p class="m-0">Ngày cập nhật: <%= user.updatedAt %>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

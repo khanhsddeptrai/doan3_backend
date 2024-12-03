@@ -17,8 +17,8 @@ module.exports = (sequelize, DataTypes) => {
         }
     };
     Timeslot.init({
-        startTime: DataTypes.DATE,
-        endTime: DataTypes.DATE,
+        startTime: DataTypes.STRING,
+        endTime: DataTypes.STRING,
 
     }, {
         sequelize,

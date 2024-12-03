@@ -12,14 +12,17 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Booking.hasOne(models.History);
+      Booking.belongsTo(models.Patient);
       Booking.hasOne(models.Schedule);
+      Booking.hasOne(models.History);
+
 
     }
   };
   Booking.init({
     status: DataTypes.STRING,
     date: DataTypes.DATE,
+    patientId: DataTypes.INTEGER
 
   }, {
     sequelize,

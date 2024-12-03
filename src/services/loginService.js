@@ -72,13 +72,12 @@ const handleUserLogin = async (inputUser) => {
 
                 let payload = {
                     email: user.email,
-                    expiresIn: process.env.JWT_EXPIRES_IN,
                     userType: user.userType,
                     name: user.name
                 }
                 let token = jwtActions.createJWT(payload)
                 return {
-                    EM: 'Okela',
+                    EM: 'Login success',
                     EC: 0,
                     DT: {
                         access_token: token,

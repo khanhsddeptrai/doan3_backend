@@ -28,8 +28,11 @@
                     </td>
                     <td>
                         <%= user.userType %>
+
                     </td>
                     <td>
+                        <a type="button" href=" /user-detail/<%=user.id %>" class="btn btn-outline-secondary">Xem chi
+                            tiết</a>
                         <button class="btn btn-sm btn-info" onclick="editUser('<%= user.id %>')">Edit</button>
                         <button class="btn btn-sm btn-danger" onclick="deleteUser('<%= user.id %>')">Delete</button>
                     </td>

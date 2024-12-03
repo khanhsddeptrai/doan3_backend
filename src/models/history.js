@@ -12,15 +12,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      History.belongsTo(models.Patient);
-      History.hasOne(models.Booking);
+      // History.belongsTo(models.Patient);
+      History.belongsTo(models.Booking);
 
 
     }
   };
   History.init({
-    bookingId: DataTypes.INTEGER,
-    patientId: DataTypes.INTEGER
+    bookingId: DataTypes.INTEGER
+    // patientId: DataTypes.INTEGER
 
   }, {
     sequelize,
