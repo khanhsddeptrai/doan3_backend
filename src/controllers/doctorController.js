@@ -31,7 +31,6 @@ const getDoctorsPage = async (req, res) => {
 // --------------------------------------------------
 const getDoctorDetailPage = async (req, res) => {
     const doctorId = req.params.id
-    console.log(doctorId)
     const doctor = await db.Doctor.findOne({
         where: { id: doctorId },
         include: [
@@ -50,7 +49,6 @@ const getDoctorDetailPage = async (req, res) => {
         ], raw: true,
         nest: true
     })
-    console.log(doctor)
     return res.render('layouts/layout', {
         page: `pages/doctorDetail.ejs`,
         pageTitle: 'doctor detail',

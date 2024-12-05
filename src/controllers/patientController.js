@@ -31,7 +31,6 @@ const getPatientDetailPage = async (req, res) => {
         raw: true,
         nest: true
     })
-    console.log(patient)
     return res.render('layouts/layout', {
         page: `pages/patientDetail.ejs`,
         pageTitle: 'Chi tiết bệnh nhân',

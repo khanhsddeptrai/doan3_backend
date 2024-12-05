@@ -47,6 +47,8 @@ const initWebRoutes = (app) => {
     // Lịch hẹn
     router.get('/booking-list', bookingController.getBookingsPage);
     router.get('/booking-detail/:id', bookingController.getBookingDetailPage);
+    router.post('/booking-detail/duyet', bookingController.approveBooking);
+    router.post('/booking-detail/huy', bookingController.rejectBooking);
 
 
     return app.use("/", router)

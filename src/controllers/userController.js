@@ -8,9 +8,6 @@ const getUserDetailPage = async (req, res) => {
         raw: true,
         nest: true
     })
-
-    console.log(user)
-
     const userData = {
         ...user,
         createdAt: bookingServices.formatDate(user.createdAt),

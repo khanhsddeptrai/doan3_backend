@@ -34,7 +34,6 @@ const getFacilityDetailPage = async (req, res) => {
         nest: true
     })
 
-    console.log(doctors)
     return res.render('layouts/layout', {
         page: `pages/facilityDetail.ejs`,
         pageTitle: 'Chi tiết Cơ sở',

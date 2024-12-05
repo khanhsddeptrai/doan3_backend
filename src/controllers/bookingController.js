@@ -16,8 +16,6 @@ const getBookingsPage = async (req, res) => {
         ...bo, date: bookingServices.formatDate(bo.date)
     }))
 
-    console.log(bookingData)
-
     return res.render('layouts/layout', {
         page: `pages/bookingList.ejs`,
         pageTitle: 'Booking manager',
@@ -48,7 +46,6 @@ const getBookingDetailPage = async (req, res) => {
         raw: true,
         nest: true
     })
-    console.log(booking)
 
     const bookingData = {
         ...booking,
@@ -64,7 +61,53 @@ const getBookingDetailPage = async (req, res) => {
     })
 }
 
+// --------------------------------------------------
+const approveBooking = async (req, res) => {
+    try {
+        const { bookingId } = await req.body
+        const bookingUpdated = await db.Booking.update(
+            {
+                status: 'Đã duyệt'
+            },
+            {
+                where: { id: bookingId },
+                raw: true,
+                nest: true
+            }
+        )
+
+        console.log(bookingUpdated)
+        return res.redirect(`/booking-detail/${bookingId}`)
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+const rejectBooking = async (req, res) => {
+    try {
+        const { bookingId } = await req.body
+        const bookingUpdated = await db.Booking.update(
+            {
+                status: 'Hủy'
+            },
+            {
+                where: { id: bookingId },
+                raw: true,
+                nest: true
+            }
+        )
+
+        console.log(bookingUpdated)
+        return res.redirect(`/booking-detail/${bookingId}`)
+    } catch (error) {
+        console.error(error)
+    }
+}
+
 module.exports = {
     getBookingsPage,
-    getBookingDetailPage
+    getBookingDetailPage,
+
+    approveBooking,
+    rejectBooking
 }
