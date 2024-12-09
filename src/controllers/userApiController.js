@@ -91,7 +91,8 @@ const getUserAccount = async (req, res) => {
         DT: {
             access_token: req.token,
             email: req.user.email,
-            name: req.user.name
+            name: req.user.name,
+            id: req.user.id
         }
     })
 }

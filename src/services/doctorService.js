@@ -1,56 +1,79 @@
 import db from "../models";
 
-const fetchDoctors = async (query) => {
+const getAllDoctor = async () => {
     try {
         let doctors = await db.Doctor.findAll({
-            ...query,
+            include: [
+                { model: db.User, },
+                { model: db.Specialty, },
+                { model: db.Facility, }, {
+                    model: db.Schedule,
+                    include: [{ model: db.Timeslot }]
+                }
+            ],
             raw: true,
             nest: true
         });
-        return {
-            EM: doctors.length ? "Get doctor success!" : "Get data success!",
-            EC: doctors.length ? 0 : 1,
-            DT: doctors
-        };
+        if (doctors) {
+            return {
+                EM: "Get doctor success!",
+                EC: 0,
+                DT: doctors
+            }
+        } else {
+            return {
+                EM: "Get data success!",
+                EC: 1,
+                DT: []
+            }
+        }
     } catch (error) {
         return {
             EM: "Something wrong from service!!!",
             EC: 1,
             DT: []
-        };
+        }
     }
-};
-
-const getAllDoctor = async () => {
-    return await fetchDoctors({
-        include: [
-            { model: db.User },
-            { model: db.Specialty },
-            { model: db.Facility },
-            {
-                model: db.Schedule,
-                include: [{ model: db.Timeslot }]
-            }
-        ]
-    });
-};
+}
 
 const getDoctorDetail = async (id) => {
-    return await fetchDoctors({
-        where: { id },
-        include: [
-            { model: db.User },
-            { model: db.Specialty },
-            { model: db.Facility },
-            {
-                model: db.Schedule,
-                include: [{ model: db.Timeslot }]
+    try {
+        let doctor = await db.Doctor.findOne({
+            where: { id: id },
+            include: [
+                { model: db.User, },
+                { model: db.Specialty, },
+                { model: db.Facility, }, {
+                    model: db.Schedule,
+                    include: [{ model: db.Timeslot }]
+                }
+            ],
+            raw: true,
+            nest: true
+        })
+        
+        if (doctor) {
+            return {
+                EM: "Get doctor success!",
+                EC: 0,
+                DT: doctor
             }
-        ]
-    });
-};
+        } else {
+            return {
+                EM: "Get data success!",
+                EC: 1,
+                DT: []
+            }
+        }
+    } catch (error) {
+        return {
+            EM: "Something wrong from service!!!",
+            EC: 1,
+            DT: []
+        }
+    }
+}
 
 module.exports = {
-    getAllDoctor,
-    getDoctorDetail
-};
+    getAllDoctor, getDoctorDetail
+}
