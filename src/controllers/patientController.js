@@ -10,7 +10,7 @@ const getPatientsPage = async (req, res) => {
         raw: true,
         nest: true
     })
-    console.log(patients)
+
     return res.render('layouts/layout', {
         page: `pages/patientList.ejs`,
         pageTitle: 'patient manager',
@@ -31,6 +31,7 @@ const getPatientDetailPage = async (req, res) => {
         raw: true,
         nest: true
     })
+
     return res.render('layouts/layout', {
         page: `pages/patientDetail.ejs`,
         pageTitle: 'Chi tiết bệnh nhân',

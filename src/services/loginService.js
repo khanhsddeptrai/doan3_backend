@@ -25,7 +25,6 @@ const checkEmail = async (userEmail) => {
 const registerNewUser = async (userData) => {
     try {
         let isExistEmail = await checkEmail(userData.email);
-        // console.log(isExistEmail)
         if (isExistEmail === true) {
             return {
                 EM: 'Email is already exist',

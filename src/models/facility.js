@@ -1,27 +1,42 @@
 'use strict';
-const { BOOLEAN } = require('sequelize');
-const {
-    Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
     class Facility extends Model {
-        /**
-         * Helper method for defining associations.
-         * This method is not a part of Sequelize lifecycle.
-         * The `models/index` file will call this method automatically.
-         */
         static associate(models) {
-            // define association here
-            Facility.hasMany(models.Doctor);
+            Facility.hasMany(models.Doctor, {
+                foreignKey: 'facilityId', 
+                as: 'doctors' 
+            });
         }
-    };
-    Facility.init({
-        name: DataTypes.STRING,
-        address: DataTypes.STRING,
-        phone: DataTypes.STRING
-    }, {
-        sequelize,
-        modelName: 'Facility',
-    });
+    }
+
+    Facility.init(
+        {
+            name: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                validate: {
+                    notEmpty: true, 
+                }
+            },
+            address: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            phone: {
+                type: DataTypes.STRING,
+                validate: {
+                    isNumeric: true, 
+                }
+            }
+        },
+        {
+            sequelize,
+            modelName: 'Facility',
+            tableName: 'Facility', 
+            timestamps: true 
+        }
+    );
+
     return Facility;
 };

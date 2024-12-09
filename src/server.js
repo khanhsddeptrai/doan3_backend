@@ -9,12 +9,12 @@ import connection from "./config/connectDB";
 import configViewEngine from "./config/viewEngine";
 import initWebRoutes from "./routes/web";
 import initApiRoutes from "./routes/api";
-import configCors from "./config/cors";
+// import configCors from "./config/cors";
 
 const app = express();
 
 //config cors
-configCors(app)
+// configCors(app)
 
 //config body-parser
 app.use(bodyParser.json());

@@ -26,39 +26,43 @@ const getBookingsPage = async (req, res) => {
 
 // --------------------------------------------------
 const getBookingDetailPage = async (req, res) => {
-    const bookingId = req.params.id
-    const booking = await db.Booking.findOne({
-        where: { id: bookingId },
-        include: [
-            { model: db.History },
-            {
-                model: db.Patient,
-                include: [{ model: db.User }]
-            },
-            {
-                model: db.Schedule,
-                include: [
-                    { model: db.Doctor, include: [{ model: db.User }] },
-                    { model: db.Timeslot }
-                ]
-            }
-        ],
-        raw: true,
-        nest: true
-    })
-
-    const bookingData = {
-        ...booking,
-        date: bookingServices.formatDate(booking.date),
-        createdAt: bookingServices.formatDate(booking.createdAt),
-        updatedAt: bookingServices.formatDate(booking.updatedAt)
+    try {
+        const bookingId = req.params.id
+        const booking = await db.Booking.findOne({
+            where: { id: bookingId },
+            include: [
+                { model: db.History },
+                {
+                    model: db.Patient,
+                    include: [{ model: db.User }]
+                },
+                {
+                    model: db.Schedule,
+                    include: [
+                        { model: db.Doctor, include: [{ model: db.User }] },
+                        { model: db.Timeslot }
+                    ]
+                }
+            ],
+            raw: true,
+            nest: true
+        })
+    
+        const bookingData = {
+            ...booking,
+            date: bookingServices.formatDate(booking.date),
+            createdAt: bookingServices.formatDate(booking.createdAt),
+            updatedAt: bookingServices.formatDate(booking.updatedAt)
+        }
+    
+        return res.render('layouts/layout', {
+            page: `pages/bookingDetail.ejs`,
+            pageTitle: 'Chi tiết lịch hẹn',
+            booking: bookingData
+        }) 
+    } catch (error) {
+        console.error(error)
     }
-
-    return res.render('layouts/layout', {
-        page: `pages/bookingDetail.ejs`,
-        pageTitle: 'Chi tiết lịch hẹn',
-        booking: bookingData
-    })
 }
 
 // --------------------------------------------------
@@ -76,7 +80,6 @@ const approveBooking = async (req, res) => {
             }
         )
 
-        console.log(bookingUpdated)
         return res.redirect(`/booking-detail/${bookingId}`)
     } catch (error) {
         console.error(error)
@@ -97,7 +100,6 @@ const rejectBooking = async (req, res) => {
             }
         )
 
-        console.log(bookingUpdated)
         return res.redirect(`/booking-detail/${bookingId}`)
     } catch (error) {
         console.error(error)

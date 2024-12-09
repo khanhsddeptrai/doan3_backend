@@ -53,13 +53,11 @@
                                     <i class="fas fa-edit fw-light text-cyan-400 ms-2" style="cursor: pointer;"
                                         title="Chỉnh sửa thông tin" onclick="editDocInfo()"></i>
                             </p>
-                            <p class="m-0">Giới thiệu: <%= doctor.User.name %>
+                            <p class="m-0">Giới thiệu: <%= doctor.infor %>
                             </p>
-                            <p class="m-0">Kinh nghiệm làm việc: <%= doctor.User.name %>
+                            <p class="m-0">Kinh nghiệm làm việc: <%= doctor.experience %>
                             </p>
-                            <p class="m-0">Giá cho người Việt Nam: <%= doctor.User.name %>
-                            </p>
-                            <p class="m-0">Giá cho người nước ngoài: <%= doctor.User.name %>
+                            <p class="m-0">Giá cho người Việt Nam: <%= doctor.price %>
                             </p>
                             <p class="m-0">Chuyên khoa: <%= doctor.Specialty.name %>
                             </p>

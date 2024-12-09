@@ -34,7 +34,6 @@ const getSpecialtyDetailPage = async (req, res) => {
         nest: true
     })
 
-    console.log(doctors)
     return res.render('layouts/layout', {
         page: `pages/specialtyDetail.ejs`,
         pageTitle: 'Chi tiết chuyên khoa',

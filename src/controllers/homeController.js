@@ -73,7 +73,6 @@ const handleUpdateDoctor = async (req, res) => {
 
 const handleDeleteDoctor = async (req, res) => {
     let id = req.params.id;
-    console.log("check id:", id)
     await userServices.deleteDoctorById(id);
     res.redirect("/doctor")
 }
