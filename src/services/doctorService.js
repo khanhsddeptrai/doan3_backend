@@ -6,12 +6,13 @@ const getAllDoctor = async () => {
             include: [
                 { model: db.User, },
                 { model: db.Specialty, },
-                { model: db.Facility, }, {
+                { model: db.Facility, },
+                {
                     model: db.Schedule,
                     include: [{ model: db.Timeslot }]
                 }
             ],
-            raw: true,
+
             nest: true
         });
         if (doctors) {

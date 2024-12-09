@@ -38,7 +38,6 @@ const registerNewUser = async (userData) => {
         await db.User.create({
             email: userData.email,
             phone: userData.phone,
-            username: userData.username,
             password: hashUserPass
         })
         return {
@@ -66,6 +65,7 @@ const handleUserLogin = async (inputUser) => {
             raw: true,
             nest: true
         })
+        console.log(inputUser);
         if (user) {
             let isCorrectPassword = checkPassword(inputUser.password, user.password)
             if (isCorrectPassword === true) {
@@ -83,7 +83,8 @@ const handleUserLogin = async (inputUser) => {
                         access_token: token,
                         userType: user.userType,
                         email: user.email,
-                        name: user.name
+                        name: user.name,
+                        id: user.id
                     }
                 }
             }

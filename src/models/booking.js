@@ -1,32 +1,32 @@
 'use strict';
-const { BOOLEAN } = require('sequelize');
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Booking extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
-      Booking.belongsTo(models.Patient);
-      Booking.hasOne(models.Schedule);
-      Booking.hasOne(models.History);
+      // Booking liên kết với Patient
+      Booking.belongsTo(models.Patient, { foreignKey: 'patientId' });
 
+      // Booking liên kết với Schedule
+      Booking.belongsTo(models.Schedule, { foreignKey: 'scheduleId' });
 
+      // Booking liên kết với History
+      Booking.hasOne(models.History, { foreignKey: 'bookingId' });
     }
   };
   Booking.init({
     status: DataTypes.STRING,
-    date: DataTypes.DATE,
-    patientId: DataTypes.INTEGER
-
+    date: {
+      type: DataTypes.DATEONLY
+    },
+    patientId: {
+      type: DataTypes.INTEGER
+    },
+    scheduleId: {
+      type: DataTypes.INTEGER
+    },
   }, {
     sequelize,
-    modelName: 'Booking',
+    modelName: 'Booking'
   });
   return Booking;
 };

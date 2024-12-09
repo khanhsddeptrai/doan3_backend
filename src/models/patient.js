@@ -18,8 +18,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Patient.init({
-    cityzenId: DataTypes.STRING,
-    userId: DataTypes.STRING
+    citizenId: DataTypes.STRING,
+    userId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Patient',

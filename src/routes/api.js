@@ -3,7 +3,8 @@ import apiController from "../controllers/apiController";
 import userApiController from '../controllers/userApiController';
 import jwtActions from '../middleware/JWTAction';
 // import homeApiController from '../controllers/homeApiController';
-import doctorApiController from '../controllers/doctorApiController'
+import doctorApiController from '../controllers/doctorApiController';
+import bookingApiController from '../controllers/bookingApiController';
 
 const router = express.Router();
 const initApiRoutes = (app) => {
@@ -21,6 +22,9 @@ const initApiRoutes = (app) => {
     // bác sĩ
     router.get('/doctor/read', doctorApiController.readDoctor)
     router.get('/doctor/read/:id', doctorApiController.readDoctorDetail)
+
+    // đặt lịch
+    router.post('/booking/create', bookingApiController.createBooking)
 
     return app.use("/api/", router)
 }

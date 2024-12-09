@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   Admin.init({
     description: DataTypes.STRING,
-    userId: DataTypes.STRING
+    userId: DataTypes.INTEGER
 
   }, {
     sequelize,
