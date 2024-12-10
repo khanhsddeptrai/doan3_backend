@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from 'dotenv';
+import path from 'path';
 dotenv.config()
 import bodyParser from "body-parser";
 import methodOverride from 'method-override';
@@ -23,6 +24,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // config cookie-parser
 app.use(cookieParser());
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 //test connection
 connection();
 
@@ -36,13 +39,8 @@ app.use(methodOverride('_method'));
 initWebRoutes(app);
 initApiRoutes(app)
 
-
-
-
 const PORT = process.env.PORT || 8081
 
-
-
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server is runing on port: `, PORT);
 })

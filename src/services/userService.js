@@ -29,7 +29,6 @@ const createNewUser = async (email, password, username, address) => {
 const getAllUser = async () => {
     try {
         let user = await db.User.findAll({
-            attributes: ['email', 'name', 'phone', 'userType']
         })
         return user
     } catch (error) {

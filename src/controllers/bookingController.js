@@ -16,6 +16,8 @@ const getBookingsPage = async (req, res) => {
         ...bo, date: bookingServices.formatDate(bo.date)
     }))
 
+    console.log(bookingData)
+
     return res.render('layouts/layout', {
         page: `pages/bookingList.ejs`,
         pageTitle: 'Booking manager',

@@ -1,15 +1,15 @@
-import { asIs } from "sequelize";
-import db from "../models";
-import { checkEmail, hashPassword } from './loginService';
-import { where } from "sequelize/lib/sequelize";
+import { asIs } from "sequelize"
+import db from "../models"
+import { checkEmail, hashPassword } from './loginService'
+import { where } from "sequelize/lib/sequelize"
 
 const getAllUser = async () => {
     try {
         let users = await db.User.findAll({
-            attributes: ['id', 'username', 'email', "phone", "sex"],
-            include: { model: db.Group, attributes: ['name', 'description'] }
+            // attributes: ['id', 'username', 'email', "phone", "sex"],
+            // include: { model: db.Group, attributes: ['name', 'description'] }
+        })
 
-        });
         if (users) {
             return {
                 EM: "Get data success!",
@@ -34,7 +34,7 @@ const getAllUser = async () => {
 
 const getUserPaginate = async (page, limit) => {
     try {
-        let offset = (page - 1) * limit;
+        let offset = (page - 1) * limit
         let { count, rows } = await db.Doctor.findAndCountAll({
             offset: offset,
             limit: limit,
@@ -66,7 +66,7 @@ const getUserPaginate = async (page, limit) => {
 const createNewUser = async (data) => {
     try {
         //check email
-        let isExistEmail = await checkEmail(data.email);
+        let isExistEmail = await checkEmail(data.email)
         // console.log(isExistEmail)
         if (isExistEmail === true) {
             return {
@@ -76,9 +76,9 @@ const createNewUser = async (data) => {
             }
         }
         //hash password
-        let hashUserPass = hashPassword(data.password);
+        let hashUserPass = hashPassword(data.password)
 
-        await db.User.create({ ...data, password: hashUserPass });
+        await db.User.create({ ...data, password: hashUserPass })
         return {
             EM: "Created successfully!",
             EC: 0,
@@ -140,7 +140,7 @@ const deleteUser = async (id) => {
             where: { id: id }
         })
         if (user) {
-            await user.destroy();
+            await user.destroy()
             return {
                 EM: "Delete user success!",
                 EC: 0,

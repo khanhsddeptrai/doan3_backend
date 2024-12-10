@@ -10,7 +10,6 @@ const getPatientsPage = async (req, res) => {
         raw: true,
         nest: true
     })
-    console.log(patients)
     return res.render('layouts/layout', {
         page: `pages/patientList.ejs`,
         pageTitle: 'patient manager',
@@ -20,22 +19,31 @@ const getPatientsPage = async (req, res) => {
 
 // -----------------------------------------------------
 const getPatientDetailPage = async (req, res) => {
-    const patientId = req.params.id
-    const patient = await db.Patient.findOne({
-        where: { userId: patientId },
-        include: [
-            {
-                model: db.User,
-            }
-        ],
-        raw: true,
-        nest: true
-    })
-    return res.render('layouts/layout', {
-        page: `pages/patientDetail.ejs`,
-        pageTitle: 'Chi tiết bệnh nhân',
-        patient: patient
-    })
+    try {
+        const patientId = req.params.id
+        const patient = await db.Patient.findOne({
+            where: { userId: patientId },
+            include: [
+                { model: db.User },
+            ],
+            raw: true,
+            nest: true
+        })
+        const bookings = await db.Booking.findAll({
+            where: { patientId: patientId },
+            raw: true,
+            nest: true
+        })
+        console.log(bookings)
+        return res.render('layouts/layout', {
+            page: `pages/patientDetail.ejs`,
+            pageTitle: 'Thông tin bệnh nhân',
+            patient: patient,
+            bookings: bookings
+        })
+    } catch (error) {
+        console.error(error)
+    }
 }
 
 module.exports = {

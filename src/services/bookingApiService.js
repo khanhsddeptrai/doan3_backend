@@ -3,6 +3,7 @@ import db from "../models";
 const createNewBooking = async (data) => {
     try {
         let booking = await db.Booking.create({ ...data, status: "pending" });
+        console.log("check booking; ", booking)
         if (booking) {
             return {
                 EM: "Create boooking success!",

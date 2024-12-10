@@ -17,10 +17,11 @@
             <hr class="m-0">
         </caption>
         <thead class="table-primary">
-            <tr>
+            <tr class="text-center">
                 <th>STT</th>
                 <th>Họ và tên</th>
-                <th>CCCD</th>
+                <th>Email</th>
+                <th>Giới tính</th>
                 <th>SDT</th>
                 <th>Tùy chỉnh</th>
             </tr>
@@ -28,21 +29,30 @@
         <tbody id="patientTable">
             <% patients.forEach((patient, index)=> { %>
                 <tr>
-                    <td>
+                    <td class="text-center">
                         <%= index + 1 %>
                     </td>
                     <td>
                         <%= patient.User.name %>
                     </td>
                     <td>
-                        <%= patient.cityzenId %>
+                        <%= patient.User.email %>
                     </td>
-                    <td>
-                        <%= patient.User.phone %>
-                    </td>
-                    <td>
-                        <a href="/patient-detail/<%= patient.User.id %>">Chi tiet</a>
-                    </td>
+                    <% if (patient.User.sex) { %>
+                        <td>
+                            <%= patient.User.sex %>
+                        </td>
+                        <% } else { %>
+                            <td class="text-danger">
+                                * Chưa cập nhật
+                            </td>
+                            <% } %>
+                                <td class="text-center">
+                                    <%= patient.User.phone %>
+                                </td>
+                                <td class="text-center">
+                                    <a href="/patient-detail/<%= patient.User.id %>">Xem chi tiết</a>
+                                </td>
                 </tr>
                 <% }) %>
         </tbody>

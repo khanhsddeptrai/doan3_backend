@@ -10,7 +10,7 @@ const getHomePage = async (req, res) => {
 
 const getUserPage = async (req, res) => {
     let users = await userServices.getAllUser();
-    console.log(req.cookies);
+    console.log(users);
     return res.render('layouts/layout', {
         page: `pages/user`,
         pageTitle: 'Manager users',
