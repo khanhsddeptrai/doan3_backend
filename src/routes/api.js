@@ -25,6 +25,7 @@ const initApiRoutes = (app) => {
 
     // đặt lịch
     router.post('/booking/create', bookingApiController.createBooking)
+    router.get('/booking/read', bookingApiController.readBooking)
 
     return app.use("/api/", router)
 }

@@ -32,7 +32,6 @@ const getBookingDetailPage = async (req, res) => {
     const booking = await db.Booking.findOne({
         where: { id: bookingId },
         include: [
-            { model: db.History },
             {
                 model: db.Patient,
                 include: [{ model: db.User }]
@@ -40,7 +39,13 @@ const getBookingDetailPage = async (req, res) => {
             {
                 model: db.Schedule,
                 include: [
-                    { model: db.Doctor, include: [{ model: db.User }] },
+                    {
+                        model: db.Doctor, include: [
+                            { model: db.User },
+                            { model: db.Facility },
+                            { model: db.Specialty },
+                        ]
+                    },
                     { model: db.Timeslot }
                 ]
             }
@@ -51,14 +56,14 @@ const getBookingDetailPage = async (req, res) => {
 
     const bookingData = {
         ...booking,
+        price: bookingServices.formatCurrency(booking?.Schedule?.Doctor?.price || 0),
         date: bookingServices.formatDate(booking.date),
         createdAt: bookingServices.formatDate(booking.createdAt),
         updatedAt: bookingServices.formatDate(booking.updatedAt)
     }
-
     return res.render('layouts/layout', {
         page: `pages/bookingDetail.ejs`,
-        pageTitle: 'Chi tiết lịch hẹn',
+        pageTitle: 'Thông tin lịch hẹn',
         booking: bookingData
     })
 }

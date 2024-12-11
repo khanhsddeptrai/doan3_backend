@@ -77,14 +77,19 @@ const handleUserLogin = async (inputUser) => {
             raw: true,
             nest: true
         })
-        // console.log("check patient id: ", user.Patients.id)
+        console.log("check patient id: ", user.Patients.id)
+        let id;
         if (user) {
             let isCorrectPassword = checkPassword(inputUser.password, user.password)
             if (isCorrectPassword === true) {
+                if (user.userType === 'patient') {
+                    id = user.Patients.id;
+                }
                 let payload = {
                     email: user.email,
                     userType: user.userType,
-                    name: user.name
+                    name: user.name,
+                    id
                 }
                 let token = jwtActions.createJWT(payload)
                 return {
@@ -95,7 +100,7 @@ const handleUserLogin = async (inputUser) => {
                         userType: user.userType,
                         email: user.email,
                         name: user.name,
-                        patientId: user.Patients.id
+                        patientId: id
                     }
                 }
             }

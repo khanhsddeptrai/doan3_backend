@@ -58,11 +58,16 @@
                                             <td>
                                                 <%= index + 1 %>
                                             </td>
-                                            <td>hưng</td>
+                                            <td>
+                                                <%= booking.Schedule.Doctor.User.name %>
+                                            </td>
                                             <td>
                                                 <%= booking.date %>
                                             </td>
-                                            <td>hưng</td>
+                                            <td>
+                                                <%= booking.Schedule.Timeslot.startTime %> - <%=
+                                                        booking.Schedule.Timeslot.endTime %>
+                                            </td>
                                             <td>
                                                 <a href="/booking-detail/<%= booking.id %>">Xem chi tiết</a>
                                             </td>
