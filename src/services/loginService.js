@@ -68,28 +68,40 @@ const registerNewUser = async (userData) => {
 }
 
 const handleUserLogin = async (inputUser) => {
+    // let user = await db.User.findOne({
+
+    //     include: [
+    //         { model: db.Patient, required: false }, // LEFT OUTER JOIN
+    //         { model: db.Doctor, required: false }  // LEFT OUTER JOIN
+    //     ],
+    //     where: { email: inputUser.email },
+    //     raw: true,
+    //     nest: true
+    // })
+
+    // console.log("check user afafa: ", user.Doctors.id)
     try {
         let user = await db.User.findOne({
-            include: [{
-                model: db.Patient
-            }],
+
+            include: [
+                { model: db.Patient, required: false }, // LEFT OUTER JOIN
+                { model: db.Doctor, required: false }  // LEFT OUTER JOIN
+            ],
             where: { email: inputUser.email },
             raw: true,
             nest: true
         })
-        console.log("check patient id: ", user.Patients.id)
-        let id;
+
         if (user) {
             let isCorrectPassword = checkPassword(inputUser.password, user.password)
             if (isCorrectPassword === true) {
-                if (user.userType === 'patient') {
-                    id = user.Patients.id;
-                }
                 let payload = {
                     email: user.email,
                     userType: user.userType,
                     name: user.name,
-                    id
+                    id: user.id,
+                    doctorId: user.Doctors.id,
+                    patientId: user.Patients.id
                 }
                 let token = jwtActions.createJWT(payload)
                 return {
@@ -100,7 +112,7 @@ const handleUserLogin = async (inputUser) => {
                         userType: user.userType,
                         email: user.email,
                         name: user.name,
-                        patientId: id
+                        doctorId: user.Doctors.id
                     }
                 }
             }

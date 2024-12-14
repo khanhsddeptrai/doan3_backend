@@ -13,16 +13,27 @@ const createNewBooking = async (data) => {
 
             // Nếu lịch trình tồn tại, tăng currentNumber
             if (schedule) {
-                await schedule.update({
-                    currentNumber: schedule.currentNumber + 1,
-                });
+                if (schedule.currentNumber < schedule.maxNumber) {
+                    // Tăng số lượng nếu chưa đạt giới hạn
+                    await schedule.update({
+                        currentNumber: schedule.currentNumber + 1,
+                    });
+
+                    return {
+                        EM: "Create booking success!",
+                        EC: 0,
+                        DT: booking,
+                    };
+                } else {
+                    // Trả về lỗi nếu đã đạt giới hạn
+                    return {
+                        EM: "Schedule is fully booked!",
+                        EC: 1,
+                        DT: [],
+                    };
+                }
             }
 
-            return {
-                EM: "Create booking success!",
-                EC: 0,
-                DT: booking,
-            };
         } else {
             return {
                 EM: "Failed to create booking!",
@@ -40,18 +51,38 @@ const createNewBooking = async (data) => {
     }
 };
 
+const getAllBookingByDoctorId = async (Id) => {
 
-const getAllBookingByDoctorId = async (id) => {
     try {
-        let bookings = await db.Booking.findAll({
-            where: { id }
-        })
-
+        const bookings = await db.Booking.findAll({
+            attributes: ['status', 'date'],
+            raw: true,
+            nest: true,
+            include: [
+                {
+                    model: db.Schedule,
+                    include: [{ model: db.Timeslot, attributes: ['startTime', 'endTime'] }],
+                    where: { doctorId: Id }
+                },
+            ],
+            include: [
+                {
+                    model: db.Patient,
+                    attributes: ['citizenId'],
+                    include: [
+                        {
+                            model: db.User,
+                            attributes: ['name', 'phone'],
+                        },
+                    ],
+                },
+            ],
+        });
         if (bookings) {
             return {
                 EM: "Get data success!",
                 EC: 0,
-                DT: users
+                DT: bookings
             }
         } else {
             return {
@@ -68,6 +99,7 @@ const getAllBookingByDoctorId = async (id) => {
         }
     }
 }
+
 
 module.exports = {
     createNewBooking, getAllBookingByDoctorId

@@ -92,7 +92,10 @@ const getUserAccount = async (req, res) => {
             access_token: req.token,
             email: req.user.email,
             name: req.user.name,
-            id: req.user.id
+            id: req.user.id,
+            userType: req.user.userType,
+            doctorId: req.user.doctorId ? req.user.doctorId : null,
+            patientId: req.user.patientId ? req.user.patientId : null
         }
     })
 }

@@ -11,18 +11,20 @@ const getBookingsPage = async (req, res) => {
         raw: true,
         nest: true
     })
+    const today = new Date();
+    const formattedToday = bookingServices.formatDate(today);
 
+    const todayBookings = bookings.filter(bo => bookingServices.formatDate(bo.date) === formattedToday);
     const bookingData = bookings.map(bo => ({
         ...bo, date: bookingServices.formatDate(bo.date)
     }))
-
-    console.log(bookingData)
 
     return res.render('layouts/layout', {
         page: `pages/bookingList.ejs`,
         pageTitle: 'Booking manager',
         bookings: bookingData,
         totalBooking: bookings.length,
+        todayBookings: todayBookings
     })
 }
 
@@ -93,7 +95,6 @@ const getBookingDetailPage = async (req, res) => {
 
     const bookingData = {
         ...booking,
-        price: bookingServices.formatCurrency(booking?.Schedule?.Doctor?.price || 0),
         date: bookingServices.formatDate(booking.date),
         createdAt: bookingServices.formatDate(booking.createdAt),
         updatedAt: bookingServices.formatDate(booking.updatedAt)

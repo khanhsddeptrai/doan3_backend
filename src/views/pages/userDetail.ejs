@@ -2,55 +2,53 @@
     <div class="container-fluid bg-white-200 bg-opacity-75 text-center p-4 po-ralative">
         <p class="fs-5 text-gray-700 text-start" id="pageTitle">Chi tiết tài khoản</p>
         <div id="contentArea">
-            <div class="p-5 border border-0 rounded shadow bg-white">
-                <img src="/images/user.png" alt="Ảnh người dùng" class="mb-3">
-                <div class="mb-3 row">
-                    <label for="inputPassword" class="col-2 col-form-label text-end">Họ tên:</label>
-                    <div class="col">
-                        <input type="text" class="form-control" value="<%= user.name %>" readOnly disabled>
+            <div class="d-flex justify-content-center">
+                <div class="card shadow me-2 p-5" style="width: 18rem;">
+                    <img src="/images/user.png" class="card-img-top text-center" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%= user.name %>
+                        </h5>
+                        <p class="card-text">
+                            Email: <%= user.email %>
+                        </p>
                     </div>
-                    <label for="inputPassword" class="col-2 col-form-label text-end">Email:</label>
-                    <div class="col">
-                        <input type="text" class="form-control" value="<%= user.email %>" readOnly disabled>
-                    </div>
+                    <a href="#" class="btn btn-primary">Khóa tài khoản</a>
                 </div>
-                    
-                <div class="mb-3 row">
-                    <label for="inputPassword" class="col-2 col-form-label text-end">Địa chỉ:</label>
-                    <div class="col">
-                        <input type="text" class="form-control" value="<%= user.address %>" readOnly disabled>
+                <div class="card shadow p-5" style="width: 25rem ;">
+                    <div class="card-body text-start">
+                        <h5 class="card-title text-center">
+                            Thông tin
+                        </h5>
+                        <p class="card-text">
+                            <span class="text-secondary">Giới tính:</span>
+                            <%= user.sex %>
+                        </p>
+                        <p class="card-text">
+                            <span class="text-secondary">Điện thoại:</span>
+                            <%= user.phone %>
+                        </p>
+                        <p class="card-text">
+                            <span class="text-secondary">Địa chỉ:</span>
+                            <%= user.address %>
+                        </p>
+                        <p class="card-text">
+                            <span class="text-secondary">Quyền truy cập:</span>
+                            <%= user.userType %>
+                        </p>
+                        <p class="card-text">
+                            <span class="text-secondary">Ngày tạo:</span>
+                            <%= user.createdAt %>
+                        </p>
+                        <p class="card-text">
+                            <span class="text-secondary">Ngày cập nhật:</span>
+                            <%= user.updatedAt %>
+                        </p>
                     </div>
-                    <label for="inputPassword" class="col-2 col-form-label text-end">Điện thoại:</label>
-                    <div class="col">
-                        <input type="text" class="form-control" value="<%= user.phone %>" readOnly disabled>
-                    </div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="inputPassword" class="col-2 col-form-label text-end">Giới tính:</label>
-                    <div class="col">
-                        <input type="text" class="form-control" value="<%= user.sex %>" readOnly disabled>
-                    </div>
-                    <label for="inputPassword" class="col-2 col-form-label text-end">Ngày tạo:</label>
-                    <div class="col">
-                        <input type="text" class="form-control" value="<%= user.createdAt %>" readOnly disabled>
-                    </div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="inputPassword" class="col-2 col-form-label text-end">Quyền truy cập:</label>
-                    <div class="col">
-                        <input type="text" class="form-control" value="<%= user.userType %>" readOnly disabled>
-                    </div>
-                    <label for="inputPassword" class="col-2 col-form-label text-end">Ngày cập nhật:</label>
-                    <div class="col">
-                        <input type="text" class="form-control" value="<%= user.updatedAt %>" readOnly disabled>
-                    </div>
-                </div>
-                <div class="text-end">
-                    <button class="btn btn-danger mt-3">
-                        Vô hiệu hóa tài khoản này
-                    </button>
+                    <a href="#" class="btn btn-primary">Cập nhật</a>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>

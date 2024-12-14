@@ -30,6 +30,7 @@ const checkUserJWT = (req, res, next) => {
         let token = cookies.jwt;
         let decoded = verifyToken(token);
         if (decoded) {
+            // console.log("Decoded User:", decoded)
             req.user = decoded;
             req.token = token
             next();
@@ -49,37 +50,33 @@ const checkUserJWT = (req, res, next) => {
     }
 }
 
-const checkUserPermisson = (req, res, next) => {
-    if (req.user) {
-        let email = req.user.email;
-        let roles = req.user.groupWithRoles.Roles;
-        let currentUrl = req.path;
-        if (!roles || roles.lenght === 0) {
-            return res.status(403).json({
-                EC: -1,
+const checkDoctorAccess = (req, res, next) => {
+    try {
+        // Giả sử bạn đã lưu thông tin người dùng trong `req.user` sau khi xác thực (ví dụ JWT)
+        const userType = req.user.userType;
+        console.log(userType)
+        if (userType !== 'doctor') {
+            return res.status(200).json({
+                EC: 1,
                 EM: "You don't have permisson to access this resource!",
                 DT: ''
             })
         }
-        let canAccess = roles.some(item => item.url = currentUrl);
-        if (canAccess === true) {
-            next();
-        } else {
-            return res.status(403).json({
-                EC: -1,
-                EM: "You don't have permisson to access this resource!",
-                DT: ''
-            })
-        }
-    } else {
-        return res.status(401).json({
+
+        // Nếu quyền hợp lệ, cho phép truy cập
+        next();
+    } catch (error) {
+        return res.status(200).json({
             EC: -1,
-            EM: "Not authenticated the user",
+            EM: "You don't have permisson to access this resource!",
             DT: ''
         })
     }
-}
+};
+
+
+
 
 module.exports = {
-    createJWT, verifyToken, checkUserJWT, checkUserPermisson
+    createJWT, verifyToken, checkUserJWT, checkDoctorAccess
 }

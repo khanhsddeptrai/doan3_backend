@@ -74,6 +74,34 @@ const getDoctorDetail = async (id) => {
     }
 }
 
+// const getDoctorScheduleByDoctorId = async (id) => {
+//     try {
+//         let doctorSchedule = await db.Schedule.findAll({
+//             where: { doctorId: id },
+//             nest: true
+//         });
+//         if (doctorSchedule) {
+//             return {
+//                 EM: "Get doctorSchedule success!",
+//                 EC: 0,
+//                 DT: doctorSchedule
+//             }
+//         } else {
+//             return {
+//                 EM: "Get data success!",
+//                 EC: 1,
+//                 DT: []
+//             }
+//         }
+//     } catch (error) {
+//         return {
+//             EM: "Something wrong from service!!!",
+//             EC: 1,
+//             DT: []
+//         }
+//     }
+// }
+
 module.exports = {
     getAllDoctor, getDoctorDetail
 }
