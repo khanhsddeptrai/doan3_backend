@@ -16,6 +16,8 @@ const getBookingsPage = async (req, res) => {
         ...bo, date: bookingServices.formatDate(bo.date)
     }))
 
+    console.log(bookingData)
+
     return res.render('layouts/layout', {
         page: `pages/bookingList.ejs`,
         pageTitle: 'Booking manager',
@@ -63,6 +65,44 @@ const getBookingDetailPage = async (req, res) => {
     } catch (error) {
         console.error(error)
     }
+    const bookingId = req.params.id
+    const booking = await db.Booking.findOne({
+        where: { id: bookingId },
+        include: [
+            {
+                model: db.Patient,
+                include: [{ model: db.User }]
+            },
+            {
+                model: db.Schedule,
+                include: [
+                    {
+                        model: db.Doctor, include: [
+                            { model: db.User },
+                            { model: db.Facility },
+                            { model: db.Specialty },
+                        ]
+                    },
+                    { model: db.Timeslot }
+                ]
+            }
+        ],
+        raw: true,
+        nest: true
+    })
+
+    const bookingData = {
+        ...booking,
+        price: bookingServices.formatCurrency(booking?.Schedule?.Doctor?.price || 0),
+        date: bookingServices.formatDate(booking.date),
+        createdAt: bookingServices.formatDate(booking.createdAt),
+        updatedAt: bookingServices.formatDate(booking.updatedAt)
+    }
+    return res.render('layouts/layout', {
+        page: `pages/bookingDetail.ejs`,
+        pageTitle: 'Thông tin lịch hẹn',
+        booking: bookingData
+    })
 }
 
 // --------------------------------------------------

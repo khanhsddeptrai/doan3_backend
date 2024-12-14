@@ -1,77 +1,62 @@
 <div class="row g-0">
     <div class="container-fluid bg-white-200 bg-opacity-75 p-4 po-ralative">
-        <p class="fs-5 text-gray-700 text-start" id="pageTitle">Thông tin lịch hẹn</p>
         <div id="contentArea">
-            <div class="row m-0">
-                <div class="col border border-0 rounded shadow-sm bg-white">
-                    <p class="fw-bold fs-5 text-start">Thông tin lịch hẹn</p>
+            <div class="row ">
+                <div class="col border border-0 rounded shadow bg-white p-5">
+                    <h4 class="text-center">Thông tin lịch hẹn</h4>
                     <% if (booking) { %>
-                        <p class="m-0">
-                            Mã lịch hẹn: <%= booking.id %>
+                        <p>
+                            <span class="text-secondary">Mã lịch hẹn:</span>
+                            <%= booking.id %>
                                 <i class="fas fa-edit fw-light text-cyan-400 ms-2" style="cursor: pointer;"
                                     title="Chỉnh sửa thông tin" onclick="editDocInfo()"></i>
                         </p>
-                        <p class="m-0">Trạng thái: <%= booking.status %>
+                        <p><span class="text-secondary">Trạng thái:</span>
+                            <%= booking.status %>
                         </p>
-                        <p class="m-0">Ngày khám: <%= booking.date %>
+                        <p><span class="text-secondary">Ngày khám:</span>
+                            <%= booking.date %>
                         </p>
-                        <p class="m-0">Bác sĩ: <%= booking.Schedule.Doctor.User.name %>
+                        <p><span class="text-secondary">Bác sĩ:</span>
+                            <%= booking.Schedule.Doctor.User.name %>
                         </p>
-                        <p class="m-0">Bệnh nhân: <%= booking.Patient.User.name %>
+                        <p><span class="text-secondary">Bệnh nhân:</span>
+                            <%= booking.Patient.User.name %>
                         </p>
-                        <p class="m-0">Thời gian khám: <%= booking.Schedule.Timeslot.startTime %> - <%=
-                                    booking.Schedule.Timeslot.endTime %>
+                        <p><span class="text-secondary">Thời gian khám:</span>
+                            <%= booking.Schedule.Timeslot.startTime %> - <%= booking.Schedule.Timeslot.endTime %>
                         </p>
-                        <p class="m-0">Ngày đặt: <%= booking.createdAt %>
+                        <p><span class="text-secondary">Ngày đặt:</span>
+                            <%= booking.createdAt %>
                         </p>
-                        <p class="m-0">Ngày chỉnh sửa: <%= booking.updatedAt %>
+                        <p><span class="text-secondary">Ngày chỉnh sửa:</span>
+                            <%= booking.updatedAt %>
                         </p>
-                        <div class="mt-2 d-flex justify-centen-center">
-                            <% if ( booking.status==="Đã duyệt" ) { %>
-                                <button class="btn btn-outline-danger"
-                                    onclick="submitForm('form-<%= booking.id %>-huy')">Hủy</button>
-                                <% }%>
-                                    <% if ( booking.status==="Hủy" ) { %>
-                                        <button class="btn btn-outline-primary"
-                                            onclick="submitForm('form-<%= booking.id %>-duyet')">Duyệt</button>
-                                        <% }%>
-                        </div>
-                        <form action="/booking-detail/duyet" method="post" class="d-diasbled"
-                            id="form-<%= booking.id %>-duyet">
-                            <input type="hidden" name="bookingId" id="" value="<%= booking.id %>">
-                        </form>
-                        <form action="/booking-detail/huy" method="post" class="d-diasbled"
-                            id="form-<%= booking.id %>-huy">
-                            <input type="hidden" name="bookingId" id="" value="<%= booking.id %>">
-                        </form>
                         <% } else { %>
-                            <p class="fs-6 m-0 text-center text-red-400">Không có thông tin lịch</p>
+                            <p class="fs-5 text-center">Không có thông tin lịch</p>
                             <% } %>
                 </div>
-                <div class="col ms-2 border border-0 rounded shadow-sm bg-white">
+                <div class="col ms-3 border border-0 rounded shadow bg-white p-5">
+                    <h4 class="text-center">Thông tin bác sĩ</h4>
                     <% if (booking.Schedule.Doctor.User) { %>
-                        <a href="/doctor-detail/<%= booking.Schedule.Doctor.User.id %>" type="button"
-                            class="my-2 text-center">
-                            <button class="btn btn-outline-primary w-75">
-                                <i class="me-2 fa-solid fa-hand-point-right"></i>Thông tin bác sĩ
-                            </button>
-                        </a>
-                        <p class="m-0">
-                            Tài khoản <%= booking.Schedule.Doctor.User.email %>
-                                <i class="fas fa-edit fw-light text-cyan-400 ms-2" style="cursor: pointer;"
-                                    title="Chỉnh sửa thông tin"></i>
+                        <!-- <a href="/doctor-detail/<%= booking.Schedule.Doctor.User.id %>" type="button"
+                            class="my-2 btn btn-outline-primary">
+                            Thông tin bác sĩ
+                        </a> -->
+                        <p><span class="text-secondary">Tên bác sĩ:</span>
+                            <%= booking.Schedule.Doctor.User.name %>
                         </p>
-                        <p class="m-0">Vai trò: <span class="text-blue-400">
-                                <%= booking.Schedule.Doctor.User.userType %>
-                            </span></p>
-                        <p class="m-0">Giới tính: <%= booking.Schedule.Doctor.User.sex %>
+                        <p><span class="text-secondary">Chuyên khoa:</span>
+                            <%= booking.Schedule.Doctor.Specialty.name %>
                         </p>
-                        <p class="m-0">Số điện thoại: <%= booking.Schedule.Doctor.User.phone %>
+                        <p><span class="text-secondary">Cơ sở y tế:</span>
+                            <%= booking.Schedule.Doctor.Facility.name %>
                         </p>
-                        <p class="m-0">Địa chỉ: <%= booking.Schedule.Doctor.User.address %>
+                        <p><span class="text-secondary">Giá Khám:</span>
+                            <!-- <%= booking.price %> -->
                         </p>
                         <% } else { %>
-                            <p class="fw-bold fs-5 text-center text-red-400">Không có thông tin tài khoản</p>
+                            <p class="fw-bold fs-5 text-center">Không có thông tin tài khoản</p>
                             <% } %>
                 </div>
             </div>

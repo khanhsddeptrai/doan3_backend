@@ -27,7 +27,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       userType: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       avatar: {
         type: Sequelize.STRING

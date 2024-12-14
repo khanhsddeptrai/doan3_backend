@@ -2,30 +2,53 @@
     <div class="container-fluid bg-white-200 bg-opacity-75 text-center p-4 po-ralative">
         <p class="fs-5 text-gray-700 text-start" id="pageTitle">Chi tiết tài khoản</p>
         <div id="contentArea">
-            <div class="row m-0">
-                <div class="row">
-                    <div class="col ms-3 ps-2 text-start">
-                        <div class="row mb-2 border border-0 rounded shadow-sm bg-white">
-                            <p class="fw-bold fs-5 text-center">Thông tin tài khoản</p>
-                            <p class="m-0">Tên: <%= user.name %>
-                            </p>
-                            <p class="m-0">Email: <%= user.email %>
-                            </p>
-                            <p class="m-0">Giới tính: <%= user.sex %>
-                            </p>
-                            <p class="m-0">Điện thoại: <%= user.phone %>
-                            </p>
-                            <p class="m-0">Địa chỉ: <%= user.address %>
-                            </p>
-                            <p class="m-0">Vai trò: <%= user.userType %>
-                            </p>
-                            <p class="m-0">Ngày tạo: <%= user.createdAt %>
-                            </p>
-                            <p class="m-0">Ngày cập nhật: <%= user.updatedAt %>
-                            </p>
-                        </div>
-
+            <div class="p-5 border border-0 rounded shadow bg-white">
+                <img src="/images/user.png" alt="Ảnh người dùng" class="mb-3">
+                <div class="mb-3 row">
+                    <label for="inputPassword" class="col-2 col-form-label text-end">Họ tên:</label>
+                    <div class="col">
+                        <input type="text" class="form-control" value="<%= user.name %>" readOnly disabled>
                     </div>
+                    <label for="inputPassword" class="col-2 col-form-label text-end">Email:</label>
+                    <div class="col">
+                        <input type="text" class="form-control" value="<%= user.email %>" readOnly disabled>
+                    </div>
+                </div>
+                    
+                <div class="mb-3 row">
+                    <label for="inputPassword" class="col-2 col-form-label text-end">Địa chỉ:</label>
+                    <div class="col">
+                        <input type="text" class="form-control" value="<%= user.address %>" readOnly disabled>
+                    </div>
+                    <label for="inputPassword" class="col-2 col-form-label text-end">Điện thoại:</label>
+                    <div class="col">
+                        <input type="text" class="form-control" value="<%= user.phone %>" readOnly disabled>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="inputPassword" class="col-2 col-form-label text-end">Giới tính:</label>
+                    <div class="col">
+                        <input type="text" class="form-control" value="<%= user.sex %>" readOnly disabled>
+                    </div>
+                    <label for="inputPassword" class="col-2 col-form-label text-end">Ngày tạo:</label>
+                    <div class="col">
+                        <input type="text" class="form-control" value="<%= user.createdAt %>" readOnly disabled>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="inputPassword" class="col-2 col-form-label text-end">Quyền truy cập:</label>
+                    <div class="col">
+                        <input type="text" class="form-control" value="<%= user.userType %>" readOnly disabled>
+                    </div>
+                    <label for="inputPassword" class="col-2 col-form-label text-end">Ngày cập nhật:</label>
+                    <div class="col">
+                        <input type="text" class="form-control" value="<%= user.updatedAt %>" readOnly disabled>
+                    </div>
+                </div>
+                <div class="text-end">
+                    <button class="btn btn-danger mt-3">
+                        Vô hiệu hóa tài khoản này
+                    </button>
                 </div>
             </div>
         </div>

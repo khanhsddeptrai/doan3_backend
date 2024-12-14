@@ -11,7 +11,7 @@ const handleRegister = async (req, res) => {
     try {
         if (!req.body.email || !req.body.password) {
             return res.status(200).json({
-                EM: "Missing required",
+                EM: "Thiếu thông tin",
                 EC: "-1",
                 DT: ""
             })
@@ -27,9 +27,9 @@ const handleRegister = async (req, res) => {
 
     } catch (error) {
         return res.status(500).json({
-            EM: "Error from server", //error massage
-            EC: "-1", //error code
-            DT: "" // data
+            EM: "Lỗi hệ thống...",
+            EC: "-1",
+            DT: ""
         })
     }
 }
@@ -47,7 +47,7 @@ const handleLogin = async (req, res) => {
         })
     } catch (error) {
         return res.status(200).json({
-            EM: "Something wrong from server!",
+            EM: "Lỗi hệ thống...",
             EC: "-1",
             DT: ""
         })

@@ -8,8 +8,17 @@ const getUserDetailPage = async (req, res) => {
         raw: true,
         nest: true
     })
+
+    const patient = await db.Patient.findOne({
+        where: { userId: userId },
+        raw: true,
+        nest: true
+    })
+
     const userData = {
         ...user,
+        sex: user.sex === 'Female' ? 'Nữ' : user.sex === 'Male' ? 'Nam' : 'Khác',
+        userType: user.userType === 'doctor' ? 'Bác sĩ' : user.userType === 'patient' ? 'Bệnh nhân' : 'Admin',
         createdAt: bookingServices.formatDate(user.createdAt),
         updatedAt: bookingServices.formatDate(user.updatedAt)
     }
@@ -17,7 +26,8 @@ const getUserDetailPage = async (req, res) => {
     return res.render('layouts/layout', {
         page: `pages/userDetail.ejs`,
         pageTitle: 'Chi tiết tài khoản',
-        user: userData
+        user: userData,
+        patient: patient
     })
 }
 

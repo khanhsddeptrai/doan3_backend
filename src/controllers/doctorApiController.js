@@ -1,8 +1,8 @@
-import doctorService from '../services/doctorService';
+import doctorApiService from '../services/doctorApiService';
 
 const readDoctor = async (req, res) => {
     try {
-        let data = await doctorService.getAllDoctor();
+        let data = await doctorApiService.getAllDoctor();
         return res.status(200).json({
             EM: data.EM,
             EC: data.EC,
@@ -21,7 +21,7 @@ const readDoctor = async (req, res) => {
 const readDoctorDetail = async (req, res) => {
     try {
         let doctorId = req.params.id
-        let data = await doctorService.getDoctorDetail(doctorId);
+        let data = await doctorApiService.getDoctorDetail(doctorId);
         return res.status(200).json({
             EM: data.EM,
             EC: data.EC,
