@@ -37,6 +37,23 @@ const readDoctorDetail = async (req, res) => {
 
 }
 
+// const getDoctorSchedule = async (id) => {
+//     try {
+//         let data = await doctorApiService.getDoctorScheduleByDoctorId(id);
+//         return res.status(200).json({
+//             EM: data.EM,
+//             EC: data.EC,
+//             DT: data.DT
+//         })
+//     } catch (error) {
+//         return res.status(200).json({
+//             EM: "Something wrong from server!",
+//             EC: "-1",
+//             DT: ""
+//         })
+//     }
+// }
+
 module.exports = {
     readDoctor, readDoctorDetail
 }

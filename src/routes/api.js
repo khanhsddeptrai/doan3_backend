@@ -22,10 +22,13 @@ const initApiRoutes = (app) => {
     // bác sĩ
     router.get('/doctor/read', doctorApiController.readDoctor)
     router.get('/doctor/read/:id', doctorApiController.readDoctorDetail)
+    // router.get('/api/doctor/doctor-schedule/:id', doctorApiController.getDoctorSchedule)
 
     // đặt lịch
     router.post('/booking/create', bookingApiController.createBooking)
-    router.get('/booking/read', bookingApiController.readBooking)
+
+    // lịch hẹn của bác sĩ
+    router.get('/booking/read/:id', jwtActions.checkUserJWT, jwtActions.checkDoctorAccess, bookingApiController.readBooking)
 
     return app.use("/api/", router)
 }

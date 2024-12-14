@@ -18,34 +18,25 @@ const createBooking = async (req, res) => {
 
 }
 
-const readBooking = async () => {
+const readBooking = async (req, res) => {
     try {
-        let data = await bookingApiService({
-            // attributes: ['id', 'username', 'email', "phone", "sex"],
-            // include: { model: db.Group, attributes: ['name', 'description'] }
-        })
-
-        if (users) {
-            return {
-                EM: "Get data success!",
-                EC: 0,
-                DT: users
-            }
-        } else {
-            return {
-                EM: "Get data success!",
-                EC: 1,
-                DT: []
-            }
+        let data = await bookingApiService.getAllBookingByDoctorId(req.params.id)
+        if (data) {
+            return res.status(200).json({
+                EM: data.EM,
+                EC: data.EC,
+                DT: data.DT
+            })
         }
     } catch (error) {
-        return {
-            EM: "Something wrong from service!!!",
+        return res.status(200).json({
+            EM: "Something wrong from server!",
             EC: 1,
             DT: []
-        }
+        })
     }
 }
+
 
 module.exports = {
     createBooking, readBooking
