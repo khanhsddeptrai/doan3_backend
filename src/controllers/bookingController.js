@@ -1,22 +1,21 @@
 import db from '../models/index';
-import bookingServices from '../services/bookingServices';
+import formatUtils from '../utils/formatUtil';
 
 const getBookingsPage = async (req, res) => {
     const bookings = await db.Booking.findAll({
         include: [
-            { model: db.History },
             { model: db.Patient },
-            { model: db.Schedule }
+            { model: db.Schedule, include: [{ model: db.Doctor, include: [{ model: db.User }] }] }
         ],
         raw: true,
         nest: true
     })
     const today = new Date();
-    const formattedToday = bookingServices.formatDate(today);
+    const formattedToday = formatUtils.formatDate(today);
 
-    const todayBookings = bookings.filter(bo => bookingServices.formatDate(bo.date) === formattedToday);
+    const todayBookings = bookings.filter(bo => formatUtils.formatDate(bo.date) === formattedToday);
     const bookingData = bookings.map(bo => ({
-        ...bo, date: bookingServices.formatDate(bo.date)
+        ...bo, date: formatUtils.formatDate(bo.date)
     }))
 
     return res.render('layouts/layout', {
@@ -43,7 +42,7 @@ const getBookingDetailPage = async (req, res) => {
                 {
                     model: db.Schedule,
                     include: [
-                        { model: db.Doctor, include: [{ model: db.User }] },
+                        { model: db.Doctor, include: [{ model: db.User }, { model: db.Specialty }, { model: db.Facility }] },
                         { model: db.Timeslot }
                     ]
                 }
@@ -51,14 +50,15 @@ const getBookingDetailPage = async (req, res) => {
             raw: true,
             nest: true
         })
-    
+        
         const bookingData = {
             ...booking,
-            date: bookingServices.formatDate(booking.date),
-            createdAt: bookingServices.formatDate(booking.createdAt),
-            updatedAt: bookingServices.formatDate(booking.updatedAt)
+            date: formatUtils.formatDate(booking.date),
+            status: booking.status === 'pending' ? 'Từ chối' : booking.status === 'aprowaprow' ? 'Đã nhận' : 'Hủy',
+            price: formatUtils.formatCurrency(booking.Schedule.Doctor.price),
+            createdAt: formatUtils.formatDate(booking.createdAt),
+            updatedAt: formatUtils.formatDate(booking.updatedAt)
         }
-    
         return res.render('layouts/layout', {
             page: `pages/bookingDetail.ejs`,
             pageTitle: 'Chi tiết lịch hẹn',
@@ -67,43 +67,6 @@ const getBookingDetailPage = async (req, res) => {
     } catch (error) {
         console.error(error)
     }
-    const bookingId = req.params.id
-    const booking = await db.Booking.findOne({
-        where: { id: bookingId },
-        include: [
-            {
-                model: db.Patient,
-                include: [{ model: db.User }]
-            },
-            {
-                model: db.Schedule,
-                include: [
-                    {
-                        model: db.Doctor, include: [
-                            { model: db.User },
-                            { model: db.Facility },
-                            { model: db.Specialty },
-                        ]
-                    },
-                    { model: db.Timeslot }
-                ]
-            }
-        ],
-        raw: true,
-        nest: true
-    })
-
-    const bookingData = {
-        ...booking,
-        date: bookingServices.formatDate(booking.date),
-        createdAt: bookingServices.formatDate(booking.createdAt),
-        updatedAt: bookingServices.formatDate(booking.updatedAt)
-    }
-    return res.render('layouts/layout', {
-        page: `pages/bookingDetail.ejs`,
-        pageTitle: 'Thông tin lịch hẹn',
-        booking: bookingData
-    })
 }
 
 // --------------------------------------------------
