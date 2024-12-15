@@ -2,150 +2,56 @@
     <div class="container-fluid bg-white-200 bg-opacity-75 text-center p-4 po-ralative">
         <p class="fs-5 text-gray-700 text-start" id="pageTitle">Chi tiết bệnh nhân</p>
         <div id="contentArea">
-            <div class="row">
-                <div class="col-4 p-5 border border-0 rounded shadow bg-white text-start">
-                    <% if (patient && patient.User) { %>
-                        <img src="/images/user.png" class="rounded mx-auto d-block" alt="...">
-                        <p class="mt-5"><span class="text-secondary">Tên bệnh nhân:</span>
-                            <%= patient.User.name %>
-                        </p>
-                        <p><span class="text-secondary">CCCD:</span>
-                            <%= patient.citizenId %>
-                        </p>
-                        <p><span class="text-secondary">Ngày sinh:</span>
-                            <%= patient.User.age %>
-                        </p>
-                        <p><span class="text-secondary">Điện thoại:</span>
-                            <%= patient.User.phone %>
-                        </p>
-                        <p><span class="text-secondary">Địa chỉ:</span>
-                            <%= patient.User.address %>
-                        </p>
-                        <p><span class="text-secondary">Giới tính:</span>
-                            <%= patient.User.sex %>
-                        </p>
-                        <a href="/user-detail/<%= patient.User.id %>" type="button"
-                            class="d-block m-auto btn btn-secondary">
-                            Kiểm tra tài khoản
-                        </a>
-                        <% } else { %>
-                            <p class="fs-6 m-0 text-center fs-4">Không có Bệnh nhân</p>
-                            <% } %>
-                </div>
+            <div class="row m-0">
+                <div class="row">
+                    <div class="col ms-3 ps-2 text-start">
+                        <div class="row mb-2 border border-0 rounded shadow-sm bg-white">
+                            <!-- <% if (patient && patient.User) { %> -->
+                            <p class="fw-bold fs-5 text-center">Thông tin bệnh nhân</p>
+                            <!-- <p class="m-0">Mã số bảo hiểm: <%= patient.health_insurance_code %> -->
+                            <!-- </p> -->
+                            <!-- <p class="m-0">Tuổi: <%= patient.User.age %> tuổi</p> -->
+                            <p class="m-0">Giới tính: <%= patient.User.sex %>
+                            </p>
+                            <p class="m-0">Điện thoại: <%= patient.User.phone %>
+                            </p>
+                            <p class="m-0">Địa chỉ: <%= patient.User.address %>
+                            </p>
+                            <p class="m-0">CMND/CCCD: <%= patient.User.citizenId %>
+                            </p>
+                            <!-- <% } else { %>
+                                <p class="fs-6 m-0">Không có Bệnh nhân</p>
+                                <% } %> -->
+                        </div>
 
-                <div class="col p-5 ms-3 border border-0 rounded shadow bg-white">
-                    <table class="mb-4 table table-hover table-info table-bordered caption-top text-center">
-                        <caption>LỊCH KHÁM BỆNH
-                            <hr class="m-0">
-                        </caption>
-                        <thead class="text-secondary">
-                            <tr>
-                                <th>STT</th>
-                                <th>Bác sĩ</th>
-                                <th>Ngày khám</th>
-                                <th>Thời gian khám</th>
-                                <th>Thao tác</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% if (bookings.length===0) { %>
-                                <tr>
-                                    <td colspan="5" class="text-center text-secondary">Bệnh nhân chưa có lịch hẹn</td>
-                                </tr>
-                                <% } else { %>
-                                    <% bookings.forEach((booking, index)=> { %>
-                                        <tr>
-                                            <td>
-                                                <%= index + 1 %>
-                                            </td>
-                                            <td>
-                                                <%= booking.Schedule.Doctor.User.name %>
-                                            </td>
-                                            <td>
-                                                <%= booking.date %>
-                                            </td>
-                                            <td>
-                                                <%= booking.Schedule.Timeslot.startTime %> - <%=
-                                                        booking.Schedule.Timeslot.endTime %>
-                                            </td>
-                                            <td>
-                                                <a href="/booking-detail/<%= booking.id %>">Xem chi tiết</a>
-                                            </td>
-                                        </tr>
-                                        <% }) %>
-                                            <% } %>
-                        </tbody>
-                    </table>
-
-                    <table class="mb-4 table table-hover table-warning table-bordered caption-top text-center">
-                        <caption>LỊCH SỬ KHÁM
-                            <hr class="m-0">
-                        </caption>
-                        <thead class="text-secondary">
-                            <tr>
-                                <th>STT</th>
-                                <th>Bác sĩ</th>
-                                <th>Ngày khám</th>
-                                <th>Thời gian khám</th>
-                                <th>Thao tác</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>hưng</td>
-                                <td>hưng</td>
-                                <td>hưng</td>
-                                <td>hưng</td>
-                                <td>
-                                    <a href="#">Xem chi tiết</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>hưng</td>
-                                <td>hưng</td>
-                                <td>hưng</td>
-                                <td>hưng</td>
-                                <td>
-                                    <a href="#">Xem chi tiết</a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <table class="table table-hover table-primary table-bordered caption-top text-center">
-                        <caption>CÁC ĐÁNH GIÁ BÁC SĨ
-                            <hr class="m-0">
-                        </caption>
-                        <thead class="text-secondary">
-                            <tr>
-                                <th>STT</th>
-                                <th>Bác sĩ</th>
-                                <th>Ngày khám</th>
-                                <th>Thời gian khám</th>
-                                <th>Thao tác</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>hưng</td>
-                                <td>hưng</td>
-                                <td>hưng</td>
-                                <td>hưng</td>
-                                <td>
-                                    <a href="#">Xem chi tiết</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>hưng</td>
-                                <td>hưng</td>
-                                <td>hưng</td>
-                                <td>hưng</td>
-                                <td>
-                                    <a href="#">Xem chi tiết</a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                        <div class="row border border-0 rounded shadow-sm bg-white">
+                            <!-- <% if (patient) { %> -->
+                            <a href="/user-detail/<%= patient.User.User_id %>" type="button" class="my-2 text-center">
+                                <button class="btn btn-outline-primary w-75">
+                                    <i class="me-2 fa-solid fa-hand-point-right"></i>Thông tin tài khoản
+                                </button>
+                            </a>
+                            <p class="m-0">
+                                Tài khoản <%= patient.User.User_id %>
+                                    <i class="fas fa-edit fw-light text-cyan-400 ms-2" style="cursor: pointer;"
+                                        title="Chỉnh sửa thông tin"></i>
+                            </p>
+                            <p class="m-0">Vai trò: <span class="text-blue-400">
+                                    <%= patient.User.userType %>
+                                </span></p>
+                            <p class="m-0">Giới tính: <%= patient.User.sex %>
+                            </p>
+                            <p class="m-0">Số điện thoại: <%= patient.User.phone %>
+                            </p>
+                            <p class="m-0">CMND/CCCD: <%= patient.User.citizenId %>
+                            </p>
+                            <p class="m-0">Địa chỉ: <%= patient.User.address %>
+                            </p>
+                            <!-- <% } else { %> -->
+                            <!-- <p class="fs-6 m-0">Không có thông tin</p> -->
+                            <!-- <% } %> -->
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

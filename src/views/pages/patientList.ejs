@@ -11,7 +11,7 @@
         </div>
     </div>
 </div>
-<div class="row m-2 p-2 border border-0 rounded shadow bg-white">
+<div class="row m-2 p-4 border border-0 rounded shadow bg-white">
     <table class="table table-striped table-bordered table-hover caption-top">
         <caption>DANH SÁCH BỆNH NHÂN
             <hr class="m-0">
@@ -47,9 +47,9 @@
                                 * Chưa cập nhật
                             </td>
                             <% } %>
-                                <td class="text-center">
-                                    <%= patient.User.phone %>
-                                </td>
+                            <td>
+                                <%= patient.User.phone %>
+                            </td>
                                 <td class="text-center">
                                     <a href="/patient-detail/<%= patient.id %>">Xem chi tiết</a>
                                 </td>

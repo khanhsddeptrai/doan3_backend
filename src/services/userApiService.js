@@ -6,10 +6,10 @@ import { where } from "sequelize/lib/sequelize"
 const getAllUser = async () => {
     try {
         let users = await db.User.findAll({
-            // attributes: ['id', 'username', 'email', "phone", "sex"],
-            // include: { model: db.Group, attributes: ['name', 'description'] }
-        })
+            attributes: ['id', 'username', 'email', "phone", "sex"],
+            include: { model: db.Group, attributes: ['name', 'description'] }
 
+        });
         if (users) {
             return {
                 EM: "Get data success!",
@@ -67,7 +67,7 @@ const getUserPaginate = async (page, limit) => {
 const createNewUser = async (data) => {
     try {
         //check email
-        let isExistEmail = await checkEmail(data.email)
+        let isExistEmail = await checkEmail(data.email);
         // console.log(isExistEmail)
         if (isExistEmail === true) {
             return {

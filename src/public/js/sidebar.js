@@ -1,4 +1,3 @@
-console.log("ok")
 const setPageTitle = (pageTitle) => {
     const pageTitleId = document.getElementById('pageTitle')
     switch (pageTitle) {
@@ -47,7 +46,6 @@ const handleHoverEffect = () => {
 
 const setActiveLink = () => {
     const sidebarMenu = document.getElementById('sideBarMenu')
-    console.log(sidebarMenu)
     const navlinks = sidebarMenu.querySelectorAll('.nav-link')
 
     // Đặt trạng thái active khi trang load lại
@@ -74,7 +72,7 @@ const setActiveLink = () => {
         const pageTitle = navLink.getAttribute('page-title')
         const dataTarget = navLink.getAttribute('page-title')
 
-        const newUrl = '/admin'
+        const newUrl = '/dashboard'
         history.pushState({ pageTitle, dataTarget }, pageTitle, newUrl)
 
         setPageTitle(pageTitle)

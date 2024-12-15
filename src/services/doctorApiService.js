@@ -6,13 +6,12 @@ const getAllDoctor = async () => {
             include: [
                 { model: db.User, },
                 { model: db.Specialty, },
-                { model: db.Facility, },
-                {
+                { model: db.Facility, }, {
                     model: db.Schedule,
                     include: [{ model: db.Timeslot }]
                 }
             ],
-
+            raw: true,
             nest: true
         });
         if (doctors) {
@@ -39,7 +38,6 @@ const getAllDoctor = async () => {
 
 const getDoctorDetail = async (id) => {
     try {
-        console.log(id)
         let doctor = await db.Doctor.findOne({
             where: { id: id },
             include: [
@@ -52,8 +50,8 @@ const getDoctorDetail = async (id) => {
             ],
             raw: true,
             nest: true
-        });
-        console.log(doctor)
+        })
+        
         if (doctor) {
             return {
                 EM: "Get doctor success!",

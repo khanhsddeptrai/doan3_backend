@@ -1,46 +1,66 @@
 <div class="row m-2 p-2 border border-0 rounded shadow bg-white caption-top">
     <span class="text-gray-600 text-start p-0">THÔNG TIN TỔNG QUÁT</span>
     <hr>
-    <div class="d-flex justify-content-around align-items-end">
+    <div class="d-flex justify-content-around align-items-center">
         <div class="card shadow-sm rounded border-2 bg-white p-3 w-25 text-center">
-            <div class="icon-wrapper mb-2">
-                <i class="fs-1 me-2 fas fa-user-md text-blue-300"></i><span class="fs-1 fw-bold text-blue-500"
-                    id="totalDoctors">
-                    <%= totalDoctor %>
-                </span>
+            <div class="row">
+                <div class="col-4">
+                    <span class="fs-1 fw-bold text-blue-500"
+                        id="totalDoctors">
+                        <%= totalDoctor %>
+                    </span>
+                </div>
+                <div class="col d-flex align-items-center">
+                    <p class="mb-1 fs-5 text-secondary">Tổng số bác sĩ</p>
+                </div>
             </div>
-            <p class="mb-1 fs-5 text-blue-600">BÁC SĨ</p>
         </div>
 
         <div class="card shadow-sm rounded border-2 bg-white p-3 w-25 text-center">
-            <div class="icon-wrapper mb-2">
-                <i class="fs-1 me-2 fas fa-calendar-alt text-orange-300"></i><span class="fs-1 fw-bold text-orange-500"
-                    id="totalAppointmentsToday"></span>
+            <div class="row">
+                <div class="col-4">
+                    <span class="fs-1 fw-bold text-blue-500"
+                        id="totalDoctors">
+                        <%= totalDoctor %>
+                    </span>
+                </div>
+                <div class="col d-flex align-items-center">
+                    <p class="mb-1 fs-5 text-secondary">Số bác sĩ có lịch hẹn hôm nay</p>
+                </div>
             </div>
-            <p class="mb-1 fs-5 text-orange-600">LỊCH HẸN HÔM NAY</p>
         </div>
 
         <div class="card shadow-sm rounded border-2 bg-white p-3 w-25 text-center">
-            <div class="icon-wrapper mb-2">
-                <i class="fs-1 me-2 fas fa-check-circle text-green-300"></i><span class="fs-1 fw-bold text-green-500"
-                    id="totalApprovedAppointments"></span>
+            <div class="row">
+                <div class="col-4">
+                    <span class="fs-1 fw-bold text-blue-500"
+                        id="totalDoctors">
+                        <%= totalDoctor %>
+                    </span>
+                </div>
+                <div class="col d-flex align-items-center">
+                    <p class="mb-1 fs-5 text-secondary">Số bác sĩ có lịch làm việc hôm nay</p>
+                </div>
             </div>
-            <p class="mb-1 fs-5 text-green-600">ĐÃ KHÁM</p>
         </div>
     </div>
 </div>
-<div class="row m-2 p-2 border border-0 rounded shadow bg-white">
-    <table class="table table-striped table-hover table-bordered">
-        <thead>
+<div class="row m-2 p-4 border border-0 rounded shadow bg-white">
+    <table class="table table-striped table-bordered table-hover caption-top">
+        <caption>DANH SÁCH BÁC SĨ
+            <hr class="m-0">
+        </caption>
+        <thead class="table-info">
             <tr class="text-center">
                 <th>STT</th>
                 <th>Tên bác sĩ</th>
                 <th>Chuyên khoa</th>
+                <th>Nơi làm việc</th>
                 <th>Kinh nghiệm</th>
                 <th>Thao tác</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="text-center">
             <% doctors.forEach((doctor, index)=> { %>
                 <tr>
                     <td>
@@ -53,12 +73,13 @@
                         <%= doctor.Specialty.name %>
                     </td>
                     <td>
+                        <%= doctor.Facility.name %>
+                    </td>
+                    <td>
                         <%= doctor.experience %>
                     </td>
-                    <td class="text-center">
-                        <a href="/doctor-detail/<%= doctor.User.id %>">
-                            <button class="btn btn-success">Chi tiết</button>
-                        </a>
+                    <td class="text-center ">
+                        <a href="/doctor-detail/<%= doctor.User.id %>">Xem chi tiết</a>
                     </td>
                 </tr>
                 <% }) %>

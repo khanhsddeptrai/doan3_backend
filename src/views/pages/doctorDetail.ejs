@@ -10,15 +10,15 @@
                     <h3 class="text-center text-uppercase">BÁc sĩ <%= doctor.User.name %>
                     </h3>
                     <% if (doctor) { %>
-                        <p>Giới thiệu: <%= doctor.User.name %>
+                        <p>Giới thiệu: <%= doctor.infor %>
                         </p>
-                        <p>Kinh nghiệm làm việc: <%= doctor.User.name %>
+                        <p>Kinh nghiệm làm việc: <%= doctor.experience %>
                         </p>
-                        <p>Giá cho người Việt Nam: <%= doctor.User.name %>
-                        </p>
-                        <p>Giá cho người nước ngoài: <%= doctor.User.name %>
+                        <p>Giá khám: <%= doctor.price %>
                         </p>
                         <p>Chuyên khoa: <%= doctor.Specialty.name %>
+                        </p>
+                        <p>Làm việc tại: <%= doctor.Facility.name %>
                         </p>
                         <% } else { %>
                             <p class="fs-6 m-0 text-center text-red-400">Không có thông tin bác sĩ</p>
@@ -39,7 +39,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <% if (schedules) { %>
+                            <% if (!schedules) { %>
                                 <tr>
                                     <td colspan="5" class="text-center text-secondary">Bác sĩ chưa có làm việc</td>
                                 </tr>
@@ -79,7 +79,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <% if (bookings || bookings===null) { %>
+                            <% if (bookings===null) { %>
                                 <tr>
                                     <td colspan="5" class="text-center text-secondary">Bác sĩ chưa có lịch hẹn</td>
                                 </tr>
@@ -95,7 +95,7 @@
                                             <%= bookings.date %>
                                         </td>
                                         <td>
-                                            <%= bookings.Schedule.Timeslot.startTime %>
+                                            <%= bookings.Schedule.Timeslot.startTime %> - <%= bookings.Schedule.Timeslot.endTime %>
                                         </td>
                                         <td>
                                             <a href="/booking-detail/<%= bookings.id %>">Xem chi tiết</a>
@@ -108,5 +108,4 @@
             </div>
         </div>
     </div>
-</div>
 </div>

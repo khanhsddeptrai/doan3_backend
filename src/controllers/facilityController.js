@@ -1,19 +1,24 @@
 import db from '../models/index';
+import formatUtils from '../utils/formatUtil';
 
 const getFacilitiesPage = async (req, res) => {
-    const facilities = await db.Facility.findAll({
-        include: [
-            { model: db.Doctor },
-        ],
-        raw: true,
-        nest: true
-    })
-
-    return res.render('layouts/layout', {
-        page: `pages/facilityList.ejs`,
-        pageTitle: 'Quản lý cơ sở y tế',
-        facilities: facilities
-    })
+    try {
+        const facilities = await db.Facility.findAll({
+            include: [
+                { model: db.Doctor, as: 'doctors' },
+            ],
+            raw: true,
+            nest: true
+        })
+    
+        return res.render('layouts/layout', {
+            page: `pages/facilityList.ejs`,
+            pageTitle: 'Quản lý cơ sở y tế',
+            facilities: facilities
+        })
+    } catch (error) {
+        console.error(error)
+    }
 }
 
 const getFacilityDetailPage = async (req, res) => {
@@ -34,10 +39,16 @@ const getFacilityDetailPage = async (req, res) => {
         nest: true
     })
 
+    const facilityData =  {
+        ...facility,
+        createdAt: formatUtils.formatDate(facility.createdAt),
+        updatedAt: formatUtils.formatDate(facility.updatedAt)
+    }
+
     return res.render('layouts/layout', {
         page: `pages/facilityDetail.ejs`,
         pageTitle: 'Chi tiết Cơ sở',
-        facility: facility,
+        facility: facilityData,
         doctors: doctors
     })
 }

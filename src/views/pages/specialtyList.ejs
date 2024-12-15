@@ -27,32 +27,19 @@
         </div>
     </div>
 </div>
-<div class="row m-2 p-2 border border-0 rounded shadow bg-white">
+<div class="m-2 p-4 border border-0 rounded shadow bg-white">
+    <div class="row row-cols-4 g-4">
     <% specialties.forEach((specialty, index)=> { %>
-        <div class="row p-2 row-cols-md-4 g-1" id="specialtyTable">
-            <div class="col">
-                <div class="card h-100">
-                    <div class="card-body p-1">
-                        <h5 class="card-title">
-                            <%= specialty.name %>
-                        </h5>
-                        <div class="row g-0">
-                            <div class="col-2 text-center">
-                                <i class="fas fa-user-md text-blue-200"></i>
-                            </div>
-                            <div class="col">
-                                <p class="card-text m-0 text-start">Mô tả: <%= specialty.description %>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <a href="/specialty-detail/<%= specialty.id %>">
-                            <button class="btn btn-success">Chi tiết</button>
-                        </a>
-                    </div>
+        <div class="col">
+            <div class="card border border-0" style="cursor: pointer">
+                <img class="m-2" src="/images/user.png" alt="">
+                <div class="card-body">
+                    <h5 class="card-title text-center"><%= specialty.name %></h5>
+                    <p class="card-text">Mô tả: <%= specialty.description %></p>
                 </div>
+                <a class="btn btn-secondary m-2" href="/specialty-detail/<%= specialty.id %>">Chi tiết</a>
             </div>
         </div>
-        <% }) %>
+    <% }) %>
+    </div>
 </div>
