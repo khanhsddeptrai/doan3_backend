@@ -20,7 +20,9 @@ const createBooking = async (req, res) => {
 
 const readBooking = async (req, res) => {
     try {
-        let data = await bookingApiService.getAllBookingByDoctorId(req.params.id)
+        let page = req.query.page;
+        let limit = req.query.limit;
+        let data = await bookingApiService.getAllBookingByDoctorId(req.params.id, +page, +limit)
         if (data) {
             return res.status(200).json({
                 EM: data.EM,

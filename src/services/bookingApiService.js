@@ -51,20 +51,16 @@ const createNewBooking = async (data) => {
     }
 };
 
-const getAllBookingByDoctorId = async (Id) => {
-
+const getAllBookingByDoctorId = async (Id, page, limit) => {
     try {
-        const bookings = await db.Booking.findAll({
+        let offset = (page - 1) * limit
+        let { count, rows } = await db.Booking.findAndCountAll({
+            offset: offset,
+            limit: limit,
+            order: [["id", "DESC"]],
             attributes: ['status', 'date'],
             raw: true,
             nest: true,
-            include: [
-                {
-                    model: db.Schedule,
-                    include: [{ model: db.Timeslot, attributes: ['startTime', 'endTime'] }],
-                    where: { doctorId: Id }
-                },
-            ],
             include: [
                 {
                     model: db.Patient,
@@ -74,22 +70,26 @@ const getAllBookingByDoctorId = async (Id) => {
                             model: db.User,
                             attributes: ['name', 'phone'],
                         },
-                    ],
+                    ]
                 },
-            ],
+                {
+                    model: db.Schedule,
+                    include: [{ model: db.Timeslot, attributes: ['startTime', 'endTime'] }],
+                    where: { doctorId: Id }
+                },
+            ]
         });
-        if (bookings) {
-            return {
-                EM: "Get data success!",
-                EC: 0,
-                DT: bookings
-            }
-        } else {
-            return {
-                EM: "Get data success!",
-                EC: 1,
-                DT: []
-            }
+        // console.log(rows)
+        let totalPages = Math.ceil(count / limit)
+        let data = {
+            totalRows: count,
+            totalPages: totalPages,
+            bookings: rows
+        }
+        return {
+            EM: "Get data success!",
+            EC: 0,
+            DT: data
         }
     } catch (error) {
         return {

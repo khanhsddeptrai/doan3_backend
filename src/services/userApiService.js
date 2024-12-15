@@ -42,6 +42,7 @@ const getUserPaginate = async (page, limit) => {
             include: { model: db.User, attributes: ['email', 'name', 'phone'] },
             order: [["id", "DESC"]]
         })
+
         let totalPages = Math.ceil(count / limit)
         let data = {
             totalRows: count,
